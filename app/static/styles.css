@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #800000;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+}
+
+/* LOGIN */
+.login-container {
+    background: white;
+    padding: 30px;
+    width: 350px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.login-container h2 {
+    color: #800000;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background: #800000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* DASHBOARD */
+.dashboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.card {
+    background: white;
+    width: 200px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    border-left: 6px solid #800000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* FORMS */
+.form-container {
+    background: white;
+    width: 400px;
+    margin: 60px auto;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.form-container h2 {
+    color: #800000;
+    text-align: center;
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background: #800000;
+    color: white;
+    border: none;
+}
+
+/* TABLE */
+.table-container {
+    width: 80%;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #800000;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+.present {
+    color: green;
+    font-weight: bold;
+}
+
+.absent {
+    color: red;
+    font-weight: bold;
+}
