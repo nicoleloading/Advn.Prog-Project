@@ -4,18 +4,20 @@
 
 {% block extra_css %}
 <style>
-    body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 400px; }
-    h2 { color: #333; margin-bottom: 30px; text-align: center; }
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; }
-    input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
-    input:focus, select:focus { outline: none; border-color: #667eea; }
-    button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: 500; }
-    button:hover { background: #5568d3; }
+    body { background: linear-gradient(135deg, #a01515 0%, #ac2020 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 30px; }
+    .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 500px; max-width: 90%; max-height: 85vh; overflow-y: auto; }
+    h2 { color: #333; margin-bottom: 25px; text-align: center; font-size: 28px; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 6px; color: #555; font-weight: 500; font-size: 14px; }
+    input, select { width: 100%; padding: 11px 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; transition: border-color 0.3s; }
+    input:focus, select:focus { outline: none; border-color: #ea6666; box-shadow: 0 0 0 3px rgba(234, 102, 102, 0.1); }
+    button { width: 100%; padding: 13px; background: #ea6666; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: background 0.3s; }
+    button:hover { background: #d55555; }
     .links { text-align: center; margin-top: 20px; }
-    .links a { color: #667eea; text-decoration: none; }
+    .links a { color: #ea6666; text-decoration: none; font-weight: 500; }
+    .links a:hover { text-decoration: underline; }
     .hidden { display: none; }
+    .role-indicator { background: #f8f9fa; padding: 10px 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; color: #666; font-size: 14px; border-left: 4px solid #ea6666; }
 </style>
 {% endblock %}
 
@@ -24,11 +26,15 @@
     <h2>Register Account</h2>
     <form method="POST">
         <div class="form-group">
-            <label>Role</label>
+            <label>Select Role</label>
             <select name="role" id="roleSelect" required>
                 <option value="student">Student</option>
                 <option value="professor">Professor</option>
             </select>
+        </div>
+
+        <div id="roleIndicator" class="role-indicator">
+            Registering as: <strong id="roleText">Student</strong>
         </div>
 
         <!-- Student Fields -->
@@ -104,10 +110,14 @@
     const roleSelect = document.getElementById('roleSelect');
     const studentFields = document.getElementById('studentFields');
     const professorFields = document.getElementById('professorFields');
+    const roleText = document.getElementById('roleText');
 
     // Function to toggle fields and their required status
     function toggleFields() {
         const isStudent = roleSelect.value === 'student';
+        
+        // Update role indicator text
+        roleText.textContent = isStudent ? 'Student' : 'Professor';
         
         if (isStudent) {
             studentFields.classList.remove('hidden');

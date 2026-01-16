@@ -4,7 +4,11 @@
 
 {% block extra_css %}
 <style>
-    body { background: linear-gradient(135deg, #a01515 0%, #ac2020 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    body { background: linear-gradient(135deg, #a01515 0%, #ac2020 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 20px; }
+    .alert { padding: 15px 20px; margin-bottom: 20px; border-radius: 8px; font-size: 14px; max-width: 400px; width: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .alert-success { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+    .alert-danger { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+    .alert-warning { background: #fff3cd; color: #856404; border-left: 4px solid #ffc107; }
     .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 400px; }
     h2 { color: #333; margin-bottom: 30px; text-align: center; }
     .form-group { margin-bottom: 20px; }
