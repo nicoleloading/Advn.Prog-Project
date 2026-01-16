@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professor Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+        }
+        .navbar {
+            background: maroon;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar h2 { font-size: 24px; }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            background: #8b0000;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .navbar a:hover { background: #660000; }
+        .container {
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-bottom: 15px;
+            color: maroon;
+            border-bottom: 2px solid maroon;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #555;
+            margin: 20px 0 10px 0;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid maroon;
+        }
+        .info-item strong { color: maroon; }
+        .form-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: maroon;
+        }
+        button {
+            background: maroon;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        button:hover { background: #8b0000; }
+        button.danger {
+            background: #dc3545;
+        }
+        button.danger:hover {
+            background: #c82333;
+        }
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .student-table th {
+            background: maroon;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .student-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .student-table tr:hover {
+            background: #f8f9fa;
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge.success { background: #d4edda; color: #155724; }
+        .badge.warning { background: #fff3cd; color: #856404; }
+        .badge.danger { background: #f8d7da; color: #721c24; }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .actions button {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .alert-success { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .alert-danger { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .alert-warning { background: #fff3cd; color: #856404; border-left: 4px solid #ffc107; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            color: maroon;
+            border-bottom-color: maroon;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h2 style="color: #ddd;">Professor Dashboard</h2>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+</div>
+
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="card">
+        <h2>Professor Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>Name:</strong><br>{{ prof.name }}
+            </div>
+            <div class="info-item">
+                <strong>Professor ID:</strong><br>{{ prof.prof_id }}
+            </div>
+            <div class="info-item">
+                <strong>Course:</strong><br>{{ prof.course }}
+            </div>
+            <div class="info-item">
+                <strong>Course ID:</strong><br>{{ prof.course_id }}
+            </div>
+            <div class="info-item">
+                <strong>Schedule:</strong><br>{{ prof.schedule }}
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('students')">Enrolled Students</button>
+            <button class="tab" onclick="showTab('enroll')">Enroll Student</button>
+            <button class="tab" onclick="showTab('attendance')">Add Attendance</button>
+        </div>
+
+        <!-- Enrolled Students Tab -->
+        <div id="students" class="tab-content active">
+            <h3>Enrolled Students ({{ enrolled_students|length }})</h3>
+            
+            {% if enrolled_students %}
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Total Classes</th>
+                        <th>Present</th>
+                        <th>Absent</th>
+                        <th>Attendance Rate</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in enrolled_students %}
+                    <tr>
+                        <td>{{ item.student.student_id }}</td>
+                        <td>{{ item.student.name }}</td>
+                        <td>{{ item.student.program }}</td>
+                        <td>{{ item.student.year }}</td>
+                        <td>{{ item.total }}</td>
+                        <td>{{ item.present }}</td>
+                        <td>{{ item.absent }}</td>
+                        <td>
+                            {% if item.rate >= 75 %}
+                                <span class="badge success">{{ item.rate }}%</span>
+                            {% elif item.rate >= 50 %}
+                                <span class="badge warning">{{ item.rate }}%</span>
+                            {% else %}
+                                <span class="badge danger">{{ item.rate }}%</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ url_for('main.remove_student', student_id=item.student.student_id) }}" style="display: inline;" onsubmit="return confirm('Remove this student from the course?');">
+                                <button type="submit" class="danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="color: #666; text-align: center; padding: 30px;">No students enrolled yet. Use the "Enroll Student" tab to add students.</p>
+            {% endif %}
+        </div>
+
+        <!-- Enroll Student Tab -->
+        <div id="enroll" class="tab-content">
+            <h3>Enroll New Student</h3>
+            <div class="form-section">
+                <form method="POST" action="{{ url_for('main.enroll_student') }}">
+                    <div class="form-group">
+                        <label>Student ID</label>
+                        <input type="text" name="student_id" placeholder="Enter student ID" required>
+                        <small style="color: #666;">Enter an existing student ID from the system</small>
+                    </div>
+                    <button type="submit">Enroll Student</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Attendance Tab -->
+        <div id="attendance" class="tab-content">
+            <h3>Add Attendance Record</h3>
+            <div class="form-section">
+                <form method="POST" action="{{ url_for('main.add_attendance') }}">
+                    <div class="form-group">
+                        <label>Student ID</label>
+                        <input type="text" name="student_id" placeholder="Enter student ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date" value="{{ today }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status" required>
+                            <option value="Present">Present</option>
+                            <option value="Absent">Absent</option>
+                            <option value="Late">Late</option>
+                            <option value="Excused">Excused</option>
+                        </select>
+                    </div>
+                    <button type="submit">Add Attendance</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabName) {
+        // Hide all tab contents
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+        
+        // Remove active class from all tabs
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        
+        // Show selected tab content
+        document.getElementById(tabName).classList.add('active');
+        
+        // Add active class to clicked tab
+        event.target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>

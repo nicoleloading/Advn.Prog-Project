@@ -4,14 +4,14 @@
 
 {% block extra_css %}
 <style>
-    body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    body { background: linear-gradient(135deg, #a01515 0%, #ac2020 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
     .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 400px; }
     h2 { color: #333; margin-bottom: 30px; text-align: center; }
     .form-group { margin-bottom: 20px; }
     label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; }
-    input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
-    input:focus { outline: none; border-color: #667eea; }
-    button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: 500; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
+    input:focus, select:focus { outline: none; border-color: #ea6666; }
+    button { width: 100%; padding: 12px; background: #ea6666; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: 500; }
     button:hover { background: #5568d3; }
     .links { text-align: center; margin-top: 20px; }
     .links a { color: #667eea; text-decoration: none; }
@@ -22,6 +22,13 @@
 <div class="container">
     <h2>Attendance System Login</h2>
     <form method="POST">
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role" required>
+                <option value="student">Student</option>
+                <option value="professor">Professor</option>
+            </select>
+        </div>
         <div class="form-group">
             <label>Email</label>
             <input type="email" name="email" required>
